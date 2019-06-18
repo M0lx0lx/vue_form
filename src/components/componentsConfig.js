@@ -143,29 +143,29 @@ export const basicComponents = [
       width: '',
     }
   },
-  {
-    type: 'rate',
-    name: '评分',
-    icon: 'icon-icon-test',
-    options: {
-      defaultValue: null,
-      max: 5,
-      disabled: false,
-      allowHalf: false,
-      required: false
-    }
-  },
-  {
-    type: 'color',
-    name: '颜色选择器',
-    icon: 'icon-color',
-    options: {
-      defaultValue: '',
-      disabled: false,
-      showAlpha: false,
-      required: false
-    }
-  },
+  // {
+  //   type: 'rate',
+  //   name: '评分',
+  //   icon: 'icon-icon-test',
+  //   options: {
+  //     defaultValue: null,
+  //     max: 5,
+  //     disabled: false,
+  //     allowHalf: false,
+  //     required: false
+  //   }
+  // },
+  // {
+  //   type: 'color',
+  //   name: '颜色选择器',
+  //   icon: 'icon-color',
+  //   options: {
+  //     defaultValue: '',
+  //     disabled: false,
+  //     showAlpha: false,
+  //     required: false
+  //   }
+  // },
   {
     type: 'select',
     name: '下拉选择框',
@@ -228,14 +228,14 @@ export const basicComponents = [
 ]
 
 export const advanceComponents = [
-  {
-    type: 'blank',
-    name: '自定义',
-    icon: 'icon-ic',
-    options: {
-      defaultType: 'String'
-    }
-  },
+  // {
+  //   type: 'blank',
+  //   name: '自定义',
+  //   icon: 'icon-ic',
+  //   options: {
+  //     defaultType: 'String'
+  //   }
+  // },
   {
     type: 'imgupload',
     name: '图片',
