@@ -6,9 +6,15 @@ import Home from '../demo/Home.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
+    // {
+    //   path: '*',
+    //   redirect: '/form_design'
+    // },
     {
-      path: '/',
+      path: '/form_design',
+      name: 'form_design',
       component: Home
     },
     {
