@@ -3,6 +3,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 module.exports = {
   productionSourceMap: false,
   publicPath: './',
+  outputDir: '../fd',
   configureWebpack: config => {
     let plugins = [
       new TerserPlugin({
