@@ -18,6 +18,11 @@ export default new Router({
       component: Home
     },
     {
+      path: '/use_form',
+      name: 'use_form',
+      component: () => import('../demo/Use_form.vue')
+    },
+    {
       path: '/price',
       name: 'price',
       component: () => import('../demo/Price.vue')

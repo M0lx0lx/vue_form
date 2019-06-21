@@ -58,9 +58,11 @@
           <el-header class="btn-bar" style="height: 45px;">
             <slot name="action">
             </slot>
+            <el-button v-if="print" type="text" size="medium" icon="el-icon-printer" @click="handle_print">打印</el-button>
             <el-button v-if="upload" type="text" size="medium" icon="el-icon-upload2" @click="handleUpload">导入JSON</el-button>
             <el-button v-if="preview" type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
             <el-button v-if="generateJson" type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>
+            <el-button v-if="save_table" type="text" size="medium" icon="el-icon-folder" @click="handle_save_table">保存</el-button>
             <!--<el-button v-if="generateCode" type="text" size="medium" icon="el-icon-document" @click="handleGenerateCode">生成代码</el-button>-->
           </el-header>
           <el-main :class="{'widget-empty': widgetForm.list.length == 0}">
@@ -168,6 +170,10 @@ export default {
     GenerateForm
   },
   props: {
+    print: {
+        type: Boolean,
+        default: false
+    },
     preview: {
       type: Boolean,
       default: false
@@ -182,6 +188,10 @@ export default {
     },
     upload: {
       type: Boolean, 
+      default: false
+    },
+    save_table: {
+      type: Boolean,
       default: false
     }
   },
@@ -514,7 +524,7 @@ export default {
     handleGenerateJson () {
       this.jsonVisible = true
       this.jsonTemplate = this.widgetForm
-      console.log(JSON.stringify(this.widgetForm))
+      console.log('生成：',JSON.stringify(this.widgetForm))
       this.$nextTick(() => {
 
         const editor = ace.edit('jsoneditor')
@@ -530,6 +540,50 @@ export default {
         const editor = ace.edit('codeeditor')
         editor.session.setMode("ace/mode/html")
       })
+    },
+    handle_print(){
+        // let sprnstr = "<!--startprint-->";//设置打印开始区域
+        // let eprnstr = "<!--endprint-->";//设置打印结束区域
+        let content_= window.open()
+        setTimeout(()=>{
+            content_.document.body.appendChild(document.getElementById('generate_form'))
+            console.log('generate_form:',document.getElementById('generate_form'))
+            function close_w(){
+                content_.close()
+                content_.removeEventListener('afterprint',close_w)
+            }
+            content_.addEventListener("afterprint", close_w)
+            content_.print();
+        },500)
+
+    },
+    handle_save_table(){
+        console.log('保存：',this.widgetForm)
+        if(!this.widgetForm.config.sql){
+            this.$message({
+                message: '请选择数据库存储位置',
+                type: 'warning'
+            });
+            this.handleConfigSelect('form')
+            return
+        }
+        this.$confirm(`表单将保存至${this.widgetForm.config.sql}数据表中`, '确认保存', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }).then(() => {
+            //do something...
+            this.$message({
+                type: 'success',
+                message: '保存成功!'
+            });
+        }).catch(() => {
+            this.$message({
+                type: 'info',
+                message: '取消保存'
+            });
+        });
+
     },
     handleUpload () {
       this.uploadVisible = true
@@ -569,9 +623,13 @@ export default {
     widgetForm: {
       deep: true,
       handler: function (val) {
-        console.log(this.$refs.widgetForm)
+        // console.log(this.$refs.widgetForm)
+        console.log('改变widgetForm2:',val)
       }
-    }
+    },
+      widgetFormSelect: function(v){
+        console.log('改变widgetFormSelect:',v)
+      }
   }
 }
 </script>

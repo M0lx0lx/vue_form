@@ -300,7 +300,10 @@
       <template v-if="data.type != 'grid'">
         
         <el-form-item label="数据绑定Key">
-          <el-input v-model="data.model"></el-input>
+          <!--<el-input v-model="data.model"></el-input>-->
+          <el-select v-model="data.model">
+            <el-option v-for="v in keys_" :value="v.value" :label="v.label"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="操作属性">
           <el-checkbox v-model="data.options.readonly" v-if="Object.keys(data.options).indexOf('readonly')>=0">完全只读</el-checkbox>
@@ -326,7 +329,6 @@
             <el-option value="email" label="邮箱地址"></el-option>
             <el-option value="hex" label="十六进制"></el-option>
           </el-select>
-          
           <div v-if="Object.keys(data.options).indexOf('pattern')>=0">
             <el-input size="mini" v-model.lazy="data.options.pattern"  style=" width: 240px;" placeholder="填写正则表达式"></el-input>
           </div>
@@ -352,7 +354,8 @@ export default {
         pattern: null,
         range: null,
         length: null
-      }
+      },
+      keys_: null
     }
   },
   computed: {
@@ -482,7 +485,41 @@ export default {
         this.validateDataType(this.data.options.dataType)
         this.valiatePattern(this.data.options.pattern)
       }
+    },
+    'data.model': function(v){
+        console.log('获取',v)
     }
-  }
+  },
+    mounted(){
+        this.$data.keys_=[
+            {
+                value: "input1",
+                label: "输入框"
+            },
+            {
+                value: "texteare",
+                label: "文本域"
+            },
+            {
+                value: "editer",
+                label: "编辑框"
+            },
+            {
+                value: "check",
+                label: "多选框"
+            },
+            {
+                value: "radio",
+                label: "单选框"
+            },
+            {
+                value: "select",
+                label: "下拉框"
+            },
+        ]
+        console.log('可匹配的字段名', this.keys_)
+
+
+    }
 }
 </script>
