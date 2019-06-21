@@ -34,8 +34,8 @@ export default {
   height: 50px;
   box-shadow: 0 2px 10px rgba(70,160,252, 0.6);
   padding: 0 10px;
-  background-image: linear-gradient(to right,#ff9000,#fff4e7);
-  /*background-image: linear-gradient(to right,#1278f6,#00b4aa);*/
+  /*background-image: linear-gradient(to right,#ff9000,#fff4e7);*/
+  background-image: linear-gradient(to right,#1278f6,#00b4aa);
   position: relative;
 
   .fm-logo{
