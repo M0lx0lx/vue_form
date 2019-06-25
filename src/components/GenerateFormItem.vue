@@ -212,7 +212,9 @@ export default {
     }
   },
   created () {
+      console.log('远程数据1：',this.remote)
     if (this.widget.options.remote && this.remote[this.widget.options.remoteFunc]) {
+        console.log('远程数据2：',this.remote)
       this.remote[this.widget.options.remoteFunc]((data) => {
         this.widget.options.remoteOptions = data.map(item => {
           return {

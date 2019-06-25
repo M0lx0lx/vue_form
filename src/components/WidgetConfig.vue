@@ -139,6 +139,11 @@
           <el-input size="mini" style="" v-model="data.options.remoteFunc">
             <template slot="prepend">远端方法</template>
           </el-input>
+
+          <!--<el-select v-model="data.options.remoteFunc">-->
+            <!--<el-option v-for="v in [{value:'1',label: '方法一'},{value:'2',label: '方法二'},{value:'3',label: '方法三'},]" :value="v.value" :label="v.label"></el-option>-->
+          <!--</el-select>-->
+
           <el-input size="mini" style="" v-model="data.options.props.value">
             <template slot="prepend">值</template>
           </el-input>
@@ -229,9 +234,9 @@
         <el-form-item label="最大上传数">
           <el-input type="number" v-model.number="data.options.length"></el-input>
         </el-form-item>
-        <el-form-item label="使用七牛上传">
-          <el-switch v-model="data.options.isQiniu"></el-switch>
-        </el-form-item>
+        <!--<el-form-item label="使用七牛上传">-->
+          <!--<el-switch v-model="data.options.isQiniu"></el-switch>-->
+        <!--</el-form-item>-->
         <template v-if="data.options.isQiniu">
           <el-form-item label="Domain" :required="true">
           <el-input v-model="data.options.domain"></el-input>

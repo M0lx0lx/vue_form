@@ -93,7 +93,7 @@
           width="1000px"
           form
         >
-          <generate-form insite="true" v-if="previewVisible" :data="widgetForm" :value="widgetModels" :remote="remoteFuncs" ref="generateForm">
+          <generate-form insite="true" id="generate_form" v-if="previewVisible" :data="widgetForm" :value="widgetModels" :remote="remoteFuncs" ref="generateForm">
 
             <template v-slot:blank="scope">
               宽度：<el-input v-model="scope.model.blank.width" style="width: 100px"></el-input>
@@ -141,6 +141,7 @@
         </cus-dialog>
       </el-container>
     </el-main>
+
     <!--<el-footer height="30px">Powered by <a target="_blank" href="https://github.com/GavinZhuLei/vue-form-making">GavinZhuLei</a></el-footer>-->
   </el-container>
   
@@ -155,7 +156,7 @@ import CusDialog from './CusDialog'
 import GenerateForm from './GenerateForm'
 import Clipboard from 'clipboard'
 import {basicComponents, layoutComponents, advanceComponents} from './componentsConfig.js'
-import {loadJs, loadCss} from '../util/index.js'
+import {loadJs, loadCss, print_page} from '../util/index.js'
 import request from '../util/request.js'
 import generateCode from './generateCode.js'
 
@@ -217,15 +218,15 @@ export default {
       uploadVisible: false,
       remoteFuncs: {
         func_test (resolve) {
-          setTimeout(() => {
+          // setTimeout(() => {
             const options = [
-              {id: '1', name: '1111'},
-              {id: '2', name: '2222'},
-              {id: '3', name: '3333'}
+              {id: '1', name: '1111', value: 'meishi', label: '美食'},
+              {id: '2', name: '2222', value: 'keji', label: '科技'},
+              {id: '3', name: '3333', value: 'ziyou', label: '自由'}
             ]
 
             resolve(options)
-          }, 2000)
+          // }, 2000)
         },
         funcGetToken (resolve) {
           request.get('http://tools-server.xiaoyaoji.cn/api/uptoken').then(res => {
@@ -491,7 +492,6 @@ export default {
     }
   },
   mounted () {
-
   },
   methods: {
     handleGoGithub () {
@@ -510,7 +510,8 @@ export default {
       return true
     },
     handlePreview () {
-      console.log(this.widgetForm)
+      console.log('1',this.widgetForm)
+      console.log('显示2：', this.widgetModels, '3', this.remoteFuncs)
       this.previewVisible = true
     },
     handleTest () {
@@ -542,20 +543,8 @@ export default {
       })
     },
     handle_print(){
-        // let sprnstr = "<!--startprint-->";//设置打印开始区域
-        // let eprnstr = "<!--endprint-->";//设置打印结束区域
-        let content_= window.open()
-        setTimeout(()=>{
-            content_.document.body.appendChild(document.getElementById('generate_form'))
-            console.log('generate_form:',document.getElementById('generate_form'))
-            function close_w(){
-                content_.close()
-                content_.removeEventListener('afterprint',close_w)
-            }
-            content_.addEventListener("afterprint", close_w)
-            content_.print();
-        },500)
-
+        this.previewVisible=true
+        print_page('generate_form', document.getElementsByTagName('head')[0].innerHTML,()=>{this.previewVisible=false})
     },
     handle_save_table(){
         console.log('保存：',this.widgetForm)
@@ -624,12 +613,9 @@ export default {
       deep: true,
       handler: function (val) {
         // console.log(this.$refs.widgetForm)
-        console.log('改变widgetForm2:',val)
+        // console.log('改变widgetForm2:',val)
       }
-    },
-      widgetFormSelect: function(v){
-        console.log('改变widgetFormSelect:',v)
-      }
+    }
   }
 }
 </script>
@@ -639,5 +625,7 @@ export default {
   background: url('../assets/form_empty.png') no-repeat;
   background-position: 50%;
 }
-
+.test{
+  border: 10px solid pink;
+}
 </style>

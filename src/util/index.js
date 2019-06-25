@@ -31,3 +31,21 @@ export const generateUUID = () => {
   });
   return uuid;
 }
+
+export const print_page= (page_id,head='',cb)=>{
+    let content_= window.open()
+    setTimeout(()=>{
+        content_.document.getElementsByTagName('head')[0].innerHTML= head
+        content_.document.body.appendChild(document.getElementById(page_id).cloneNode(true))
+        function close_w(){
+            cb && cb()
+            content_.close()
+            content_.removeEventListener('afterprint',close_w)
+        }
+        content_.addEventListener("afterprint", close_w)
+        content_.onload= content_.print()
+
+    },100)
+    // element.hasAttribute("href")  //元素是否有此属性
+    // element.getAttributeNode(has_w).value  //获取元素的属性的值
+}
