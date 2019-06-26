@@ -29,6 +29,13 @@
               <el-option v-for="v in sql_" :value="v.value" :label="v.label"></el-option>
           </el-select>
       </el-form-item>
+
+      <el-form-item label="表单格式">
+        <el-radio-group v-model="data.layout">
+          <el-radio-button label="default">默认</el-radio-button>
+          <el-radio-button label="tables">表格</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
     </el-form>
   </div>
 </template>

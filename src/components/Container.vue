@@ -93,7 +93,7 @@
           width="1000px"
           form
         >
-          <generate-form insite="true" id="generate_form" v-if="previewVisible" :data="widgetForm" :value="widgetModels" :remote="remoteFuncs" ref="generateForm">
+          <generate-form insite="true" id="generate_form" :class="widgetForm.config.layout" v-if="previewVisible" :data="widgetForm" :value="widgetModels" :remote="remoteFuncs" ref="generateForm">
 
             <template v-slot:blank="scope">
               宽度：<el-input v-model="scope.model.blank.width" style="width: 100px"></el-input>
@@ -207,7 +207,8 @@ export default {
         config: {
           labelWidth: 100,
           labelPosition: 'top',
-          size: 'small'
+          size: 'small',
+          layout: 'default'
         },
       },
       configTab: 'widget',
@@ -486,7 +487,8 @@ export default {
   "config": {
     "labelWidth": 100,
     "labelPosition": "top",
-    "size": "small"
+    "size": "small",
+    "layout": "default"
   }
 }`
     }
